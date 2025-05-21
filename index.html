@@ -3,10 +3,17 @@
 <head>
   <title>Konum Tabanlı Form Erişimi</title>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 40px; }
+    button { padding: 10px 20px; font-size: 16px; margin-top: 20px; }
+    #status { margin-top: 20px; font-weight: bold; }
+  </style>
 </head>
 <body>
-  <h2>Konum kontrol ediliyor...</h2>
-  <p id="status">Lütfen bekleyin...</p>
+  <h2>Konum Tabanlı Form Erişimi</h2>
+  <p id="status">Konum izni için butona tıklayın.</p>
+  <button onclick="checkLocation()">Konumumu Kontrol Et</button>
 
   <script>
     const allowedLat = 40.952181;
@@ -27,7 +34,10 @@
       return R * c;
     }
 
-    navigator.geolocation.getCurrentPosition(success, error);
+    function checkLocation() {
+      document.getElementById("status").innerText = "Konum alınıyor...";
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
 
     function success(pos) {
       const lat = pos.coords.latitude;
@@ -45,7 +55,7 @@
     }
 
     function error(err) {
-      document.getElementById("status").innerText = "Konum bilgisi alınamadı. Lütfen konum iznine izin verin.";
+      document.getElementById("status").innerText = "Konum bilgisi alınamadı. Lütfen tarayıcıdan konum izni verin.";
     }
   </script>
 </body>
